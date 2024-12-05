@@ -1,0 +1,343 @@
+# Prac Comp 2024 Final Project
+
+## Karina Alvarez
+
+### Importing data
+
+```{r}
+dat <- read.csv("Copy of Comprehensive Data Shoot Length(AutoRecovered)(Sheet2).csv")
+
+(dat <- dat[,1:4])
+```
+
+```{r}
+library(tidyverse)
+
+dat %>%
+  group_by(Hormone) %>%
+  count()
+```
+### Comparing within Hormone Treatments
+
+#### 2iP
+
+##### Shoots
+
+```{r}
+dat %>% 
+  filter(Hormone == "2iP") %>%
+  group_by(Dosage) %>%
+  summarize(n = n(),
+            mean = mean(Shoots),
+            sd = sd(Shoots))
+```
+
+
+```{r}
+(dat.2iP <- dat %>% 
+  filter(Hormone == "2iP"))
+```
+
+```{r}
+dat.2iP %>%
+  ggplot(aes(x=Dosage, y=Shoots, fill=Dosage)) +
+  geom_violin(scale="count") +
+  geom_boxplot(fill=NA) +
+  theme(legend.position = "none")
+```
+
+
+```{r}
+aov.2iP.Shoots <- aov(dat.2iP$Shoots ~ dat.2iP$Dosage)
+
+summary(aov.2iP.Shoots)
+```
+
+```{r}
+TukeyHSD(aov.2iP.Shoots)
+```
+
+```{r}
+library(ggstatsplot)
+
+ggbetweenstats(dat.2iP, Dosage, Shoots, type = "nonparametric")
+```
+
+##### Shoot Length
+
+```{r}
+dat %>% 
+  filter(Hormone == "2iP") %>%
+  group_by(Dosage) %>%
+  summarize(n = n(),
+            mean = mean(Shoot.Length),
+            sd = sd(Shoot.Length))
+```
+
+```{r}
+dat.2iP %>%
+  ggplot(aes(x=Dosage, y=Shoot.Length, fill=Dosage)) +
+  geom_violin() +
+  geom_boxplot(fill=NA) +
+  theme(legend.position = "none")
+```
+
+```{r}
+aov.2iP.Shoot.Length <- aov(dat.2iP$Shoot.Length ~ dat.2iP$Dosage)
+
+summary(aov.2iP.Shoot.Length)
+```
+
+```{r}
+TukeyHSD(aov.2iP.Shoot.Length)
+```
+
+```{r}
+library(ggstatsplot)
+
+ggbetweenstats(dat.2iP, Dosage, Shoot.Length, type = "nonparametric")
+```
+
+
+#### BAP/KN
+
+##### Shoots
+
+```{r}
+dat %>% 
+  filter(Hormone == "BAP/KN") %>%
+  group_by(Dosage) %>%
+  summarize(n = n(),
+            mean = mean(Shoots),
+            sd = sd(Shoots))
+```
+
+
+```{r}
+(dat.BAPKN <- dat %>% 
+  filter(Hormone == "BAP/KN"))
+```
+
+```{r}
+dat.BAPKN %>%
+  ggplot(aes(x=Dosage, y=Shoots, fill=Dosage)) +
+  geom_violin(scale="count", draw_quantiles = TRUE) +
+  geom_boxplot(fill=NA) +
+  theme(legend.position = "none")
+```
+
+```{r}
+aov.BAPKN.Shoots <- aov(dat.BAPKN$Shoots ~ dat.BAPKN$Dosage)
+
+summary(aov.BAPKN.Shoots)
+```
+
+```{r}
+TukeyHSD(aov.BAPKN.Shoots)
+```
+
+```{r}
+library(ggstatsplot)
+
+ggbetweenstats(dat.BAPKN, Dosage, Shoots, method = "nonparametric")
+```
+
+##### Shoot Length
+
+```{r}
+dat %>% 
+  filter(Hormone == "BAP/KN") %>%
+  group_by(Dosage) %>%
+  summarize(n = n(),
+            mean = mean(Shoot.Length),
+            sd = sd(Shoot.Length))
+```
+
+```{r}
+dat.BAPKN %>%
+  ggplot(aes(x=Dosage, y=Shoot.Length, fill=Dosage)) +
+  geom_violin(scale="count") +
+  geom_boxplot(fill=NA) +
+  theme(legend.position = "none")
+```
+
+```{r}
+aov.BAPKN.Shoot.Length <- aov(dat.BAPKN$Shoot.Length ~ dat.BAPKN$Dosage)
+
+summary(aov.BAPKN.Shoot.Length)
+```
+
+```{r}
+TukeyHSD(aov.BAPKN.Shoot.Length)
+```
+
+```{r}
+library(ggstatsplot)
+
+ggbetweenstats(dat.BAPKN, Dosage, Shoot.Length, type = "nonparametric")
+```
+
+#### BAP/TDZ
+
+##### Shoots
+```{r}
+dat %>% 
+  filter(Hormone == "BAP/TDZ") %>%
+  group_by(Dosage) %>%
+  summarize(n = n(),
+            mean = mean(Shoots),
+            sd = sd(Shoots))
+```
+
+
+```{r}
+(dat.BAPTDZ <- dat %>% 
+  filter(Hormone == "BAP/TDZ"))
+```
+
+```{r}
+dat.BAPTDZ %>%
+  ggplot(aes(x=Dosage, y=Shoots, fill=Dosage)) +
+  geom_violin(scale="count") +
+  geom_boxplot(fill=NA) +
+  theme(legend.position = "none")
+```
+
+
+```{r}
+aov.BAPTDZ.Shoots <- aov(dat.BAPTDZ$Shoots ~ dat.BAPTDZ$Dosage)
+
+summary(aov.BAPTDZ.Shoots)
+```
+
+```{r}
+TukeyHSD(aov.BAPTDZ.Shoots)
+```
+
+```{r}
+library(ggstatsplot)
+
+ggbetweenstats(dat.BAPTDZ, Dosage, Shoots, type = "nonparametric")
+```
+
+##### Shoot Length
+
+```{r}
+dat %>% 
+  filter(Hormone == "BAP/TDZ") %>%
+  group_by(Dosage) %>%
+  summarize(n = n(),
+            mean = mean(Shoot.Length),
+            sd = sd(Shoot.Length))
+```
+
+```{r}
+dat.BAPTDZ %>%
+  ggplot(aes(x=Dosage, y=Shoot.Length, fill=Dosage)) +
+  geom_violin() +
+  geom_boxplot(fill=NA) +
+  theme(legend.position = "none")
+```
+
+```{r}
+aov.BAPTDZ.Shoot.Length <- aov(dat.BAPTDZ$Shoot.Length ~ dat.BAPTDZ$Dosage)
+
+summary(aov.BAPTDZ.Shoot.Length)
+```
+
+```{r}
+TukeyHSD(aov.BAPTDZ.Shoot.Length)
+```
+
+```{r}
+library(ggstatsplot)
+
+ggbetweenstats(dat.BAPTDZ, Dosage, Shoot.Length, type = "nonparametric")
+```
+#### Zeatin
+
+##### Shoots
+
+```{r}
+dat %>% 
+  filter(Hormone == "Zeatin") %>%
+  group_by(Dosage) %>%
+  summarize(n = n(),
+            mean = mean(Shoots),
+            sd = sd(Shoots))
+```
+
+
+```{r}
+(dat.Zeatin <- dat %>% 
+  filter(Hormone == "Zeatin"))
+```
+
+```{r}
+dat.Zeatin %>%
+  ggplot(aes(x=Dosage, y=Shoots, fill=Dosage)) +
+  geom_violin(scale="count") +
+  geom_boxplot(fill=NA) +
+  theme(legend.position = "none")
+```
+
+
+```{r}
+aov.Zeatin.Shoots <- aov(dat.Zeatin$Shoots ~ dat.Zeatin$Dosage)
+
+summary(aov.Zeatin.Shoots)
+```
+
+```{r}
+TukeyHSD(aov.Zeatin.Shoots)
+```
+
+```{r}
+library(ggstatsplot)
+
+ggbetweenstats(dat.Zeatin, Dosage, Shoots, type = "nonparametric")
+```
+
+##### Shoot Length
+
+```{r}
+dat %>% 
+  filter(Hormone == "Zeatin") %>%
+  group_by(Dosage) %>%
+  summarize(n = n(),
+            mean = mean(Shoot.Length),
+            sd = sd(Shoot.Length))
+```
+
+```{r}
+dat.Zeatin %>%
+  ggplot(aes(x=Dosage, y=Shoot.Length, fill=Dosage)) +
+  geom_violin() +
+  geom_boxplot(fill=NA) +
+  theme(legend.position = "none")
+```
+
+```{r}
+aov.Zeatin.Shoot.Length <- aov(dat.Zeatin$Shoot.Length ~ dat.Zeatin$Dosage)
+
+summary(aov.Zeatin.Shoot.Length)
+```
+
+```{r}
+TukeyHSD(aov.Zeatin.Shoot.Length)
+```
+
+```{r}
+library(ggstatsplot)
+
+ggbetweenstats(dat.Zeatin, Dosage, Shoot.Length, type = "nonparametric")
+```
+
+
+
+
+
+
+
+
+
